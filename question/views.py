@@ -14,7 +14,9 @@ from question.serializers import QuestionSerializer
 @permission_classes([AllowAny]) # 글쓰기 로그인 없이 가능
 def question_create(request):
     serializer = QuestionSerializer(data=request.data)
-    return Response(status=status.HTTP_201_CREATED)
+    if serializer.is_valid(raise_exception=True):
+        serializer.save(user=request.user)
+        return Response(status=status.HTTP_201_CREATED)
 
 @api_view(['GET'])
 @permission_classes([AllowAny])  # 글 확인은 로그인 없이 가능
