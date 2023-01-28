@@ -13,7 +13,7 @@ from question.serializers import QuestionSerializer
 @api_view(['POST'])
 @permission_classes([AllowAny]) # 글쓰기 로그인 없이 가능
 def question_create(request):
-    QuestionSerializer(data=request.data)
+    serializer = QuestionSerializer(data=request.data)
     return Response(status=status.HTTP_201_CREATED)
 
 @api_view(['GET'])
